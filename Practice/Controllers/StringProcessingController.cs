@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Practice.Interfaces;
 using Practice.Services;
 
 namespace Practice.Controllers
@@ -8,16 +9,20 @@ namespace Practice.Controllers
     public class StringProcessingController : Controller
     {
         private readonly StringProcessingService stringProcessing;
+        private readonly IValidator<string> validator;
 
-        public StringProcessingController(StringProcessingService stringProcessing)
+        public StringProcessingController(StringProcessingService stringProcessing, IValidator<string> validator)
         {
             this.stringProcessing = stringProcessing;
+            this.validator = validator;
         }
 
         [HttpPost]
-        public string? Index([FromBody] string originalString)
+        public IActionResult ProcessString([FromBody] string originalString)
         {
-            return stringProcessing.ProcessString(originalString);
+            if(!validator.Validate(originalString))
+                return BadRequest(validator.ErrorMessage);
+            return Ok(stringProcessing.ProcessString(originalString));
         }
     }
 }

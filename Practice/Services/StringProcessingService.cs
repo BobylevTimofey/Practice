@@ -4,18 +4,15 @@ namespace Practice.Services
 {
     public class StringProcessingService
     {
-        public string? ProcessString(string? originalString)
+        public string ProcessString(string originalString)
         {
-            if (originalString == null)
-                throw new NullReferenceException();
-            
             if (originalString.Length % 2 == 0)
                 return ProcessEvenLengthString(originalString.ToCharArray());
             else
                 return ProcessOddLengthString(originalString.ToCharArray());
         }
 
-        private string? ProcessEvenLengthString(char[] charArray)
+        private string ProcessEvenLengthString(char[] charArray)
         { 
             var firstPart = charArray.Take(charArray.Length / 2)
                                      .Reverse();
@@ -25,7 +22,7 @@ namespace Practice.Services
             return new string(firstPart.Concat(secondPart).ToArray());                
         }
 
-        private string? ProcessOddLengthString(char[] charArray)
+        private string ProcessOddLengthString(char[] charArray)
         {
             var firstPart = charArray.Reverse();
             return new string(firstPart.Concat(charArray).ToArray());             
