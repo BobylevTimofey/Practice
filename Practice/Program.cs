@@ -11,6 +11,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<StringProcessingService>();
 builder.Services.AddTransient<IValidator<string>, OnlyEnglishLettersValidator>();
+builder.Services.AddTransient<IAdditionalInfoService<string, Dictionary<char,int>>, SymbolCountingService>();
+
 
 var app = builder.Build();
 

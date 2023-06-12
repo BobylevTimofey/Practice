@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using Practice.Models;
 using Practice.Services;
 
 namespace Practice.Tests
@@ -13,7 +14,7 @@ namespace Practice.Tests
         public void SimpleTest(string originalString, string expectedString)
         {
             var stringProcessing = new StringProcessingService();
-            Assert.AreEqual(expectedString, stringProcessing.ProcessString(originalString));
+            Assert.AreEqual(expectedString, stringProcessing.ProcessString(originalString).Value);
         }
     }
 }

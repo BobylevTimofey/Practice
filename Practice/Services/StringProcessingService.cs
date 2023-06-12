@@ -1,15 +1,16 @@
-﻿using System.Text;
+﻿using Practice.Models;
+using System.Text;
 
 namespace Practice.Services
 {
     public class StringProcessingService
     {
-        public string ProcessString(string originalString)
+        public ProcessedString ProcessString(string originalString)
         {
             if (originalString.Length % 2 == 0)
-                return ProcessEvenLengthString(originalString.ToCharArray());
+                return new ProcessedString(ProcessEvenLengthString(originalString.ToCharArray()));
             else
-                return ProcessOddLengthString(originalString.ToCharArray());
+                return new ProcessedString(ProcessOddLengthString(originalString.ToCharArray()));
         }
 
         private string ProcessEvenLengthString(char[] charArray)
