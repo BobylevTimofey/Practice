@@ -1,7 +1,9 @@
-﻿namespace Practice.Interfaces
+﻿using Practice.Models;
+
+namespace Practice.Interfaces
 {
-    public interface IAdditionalInfoService<TValue,TInfo>
+    public interface IAdditionalInfoService
     {
-        public TInfo AppendAdditionalInfo(TValue value);
+        public void AppendAdditionalInfo(ProcessedString value);
     }
 }

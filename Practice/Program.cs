@@ -1,3 +1,4 @@
+using Microsoft.Extensions.DependencyInjection;
 using Practice.Interfaces;
 using Practice.Services;
 
@@ -10,9 +11,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<StringProcessingService>();
+builder.Services.AddTransient<AggregatorAdditionalInformationServices>();
 builder.Services.AddTransient<IValidator<string>, OnlyEnglishLettersValidator>();
-builder.Services.AddTransient<IAdditionalInfoService<string, Dictionary<char,int>>, SymbolCountingService>();
-
+builder.Services.AddTransient<IAdditionalInfoService, SymbolCountingService>();
+builder.Services.AddTransient<IAdditionalInfoService, FindSubstringService>();
 
 var app = builder.Build();
 

@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using Practice.Models;
 using Practice.Services;
 using System.Globalization;
 
@@ -10,7 +11,9 @@ namespace Practice.Tests
         private Dictionary<char, int> GetResult(string originalString)
         {
             var symbolCounting = new SymbolCountingService();
-            return symbolCounting.AppendAdditionalInfo(originalString);
+            var processedString = new ProcessedString(originalString);
+            symbolCounting.AppendAdditionalInfo(processedString);
+            return processedString.CountEachSymbols;
         }
 
         [Test]

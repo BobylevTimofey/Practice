@@ -11,14 +11,14 @@ namespace Practice.Controllers
     {
         private readonly StringProcessingService stringProcessing;
         private readonly IValidator<string> validator;
-        private readonly IAdditionalInfoService<string, Dictionary<char, int>> additionalInfoService;
+        private readonly AggregatorAdditionalInformationServices aggregatorServices;
 
         public StringProcessingController(StringProcessingService stringProcessing,
-            IValidator<string> validator, IAdditionalInfoService<string, Dictionary<char, int>> additionalInfoService)
+            IValidator<string> validator, AggregatorAdditionalInformationServices aggregatorServices)
         {
             this.stringProcessing = stringProcessing;
             this.validator = validator;
-            this.additionalInfoService = additionalInfoService;
+            this.aggregatorServices = aggregatorServices;
         }
 
         [HttpPost]
@@ -28,11 +28,7 @@ namespace Practice.Controllers
                 return BadRequest(validator.ErrorMessage);
             var processedString = stringProcessing.ProcessString(originalString);
             if (hasAdditionalInformation)
-            {
-                var processedStringWithInfo = new ProcessedStringWithInfo<Dictionary<char, int>>(processedString.Value);
-                processedStringWithInfo.AdditionalInfo = additionalInfoService.AppendAdditionalInfo(processedStringWithInfo.Value);
-                return Ok(processedStringWithInfo);
-            }
+                return Ok(aggregatorServices.AppendAdditionalInformation(processedString));
             return Ok(processedString);
         }
     }

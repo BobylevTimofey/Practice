@@ -4,11 +4,13 @@ namespace Practice.Models
 {
     public class ProcessedString
     {
-        public string Value { get; init; }
-
-        public ProcessedString(string value)
+        public ProcessedString(string result)
         {
-            Value = value;
+            Result = result;
         }
+
+        public string Result { get; set; }
+        public Dictionary<char, int>? CountEachSymbols { get; set; }
+        public string? substring { get; set; }
     }
 }

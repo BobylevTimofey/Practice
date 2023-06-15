@@ -3,19 +3,19 @@ using Practice.Models;
 
 namespace Practice.Services
 {
-    public class SymbolCountingService : IAdditionalInfoService<string, Dictionary<char, int>>
+    public class SymbolCountingService : IAdditionalInfoService
     {
-        public Dictionary<char, int> AppendAdditionalInfo(string value)
+        public void AppendAdditionalInfo(ProcessedString processedString)
         {
-            var countRepeatSymbols = new Dictionary<char, int>();
-            foreach (var symbol in value)
+            var countEachSymbols = new Dictionary<char, int>();
+            foreach (var symbol in processedString.Result)
             {
-                if (!countRepeatSymbols.ContainsKey(symbol))
-                    countRepeatSymbols.Add(symbol, 1);
+                if (!countEachSymbols.ContainsKey(symbol))
+                    countEachSymbols.Add(symbol, 1);
                 else
-                    countRepeatSymbols[symbol]++;
+                    countEachSymbols[symbol]++;
             }
-            return countRepeatSymbols;
+            processedString.CountEachSymbols = countEachSymbols;
         }
     }
 }

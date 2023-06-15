@@ -14,7 +14,7 @@ namespace Practice.Tests
         public void SimpleTest(string originalString, string expectedString)
         {
             var stringProcessing = new StringProcessingService();
-            Assert.AreEqual(expectedString, stringProcessing.ProcessString(originalString).Value);
+            Assert.AreEqual(expectedString, stringProcessing.ProcessString(originalString).Result);
         }
     }
 }
