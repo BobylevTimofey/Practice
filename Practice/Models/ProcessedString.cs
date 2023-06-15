@@ -1,0 +1,16 @@
+﻿using Practice.Interfaces;
+
+namespace Practice.Models
+{
+    public class ProcessedString
+    {
+        public ProcessedString(string result)
+        {
+            Result = result;
+        }
+
+        public string Result { get; set; }
+        public Dictionary<char, int>? CountEachSymbols { get; set; }
+        public string? substring { get; set; }
+    }
+}
