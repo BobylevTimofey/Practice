@@ -1,18 +1,18 @@
 ﻿using NUnit.Framework;
 using Practice.Models;
-using Practice.Services;
+using Practice.Services.AdditionalInfoServices;
 
 namespace Practice.Tests
 {
     [TestFixture]
     public class FindSubstringServiceTests
     {
-        private string GetResult(string originalString)
+        private string? GetResult(string originalString)
         {
             var findSubstringService = new FindSubstringService();
             var processedString = new ProcessedString(originalString);
-            findSubstringService.AppendAdditionalInfo(processedString);
-            return processedString.substring;
+            findSubstringService.AppendAdditionalInfo(new Parameters(processedString));
+            return processedString.Substring;
         }
 
         [TestCase("aa", "aa")]

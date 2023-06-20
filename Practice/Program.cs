@@ -1,6 +1,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using Practice.Interfaces;
 using Practice.Services;
+using Practice.Services.AdditionalInfoServices;
+using Practice.Services.AdditionalInfoServices.Sortings;
+using Practice.Services.AdditionalInfoServices.Sortings.TreeSort;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +18,9 @@ builder.Services.AddTransient<AggregatorAdditionalInformationServices>();
 builder.Services.AddTransient<IValidator<string>, OnlyEnglishLettersValidator>();
 builder.Services.AddTransient<IAdditionalInfoService, SymbolCountingService>();
 builder.Services.AddTransient<IAdditionalInfoService, FindSubstringService>();
+builder.Services.AddTransient<IAdditionalInfoService, SortingService>();
+builder.Services.AddTransient<ISorter<char>, QuickSort<char>>();
+builder.Services.AddTransient<ISorter<char>, TreeSort<char>>();
 
 var app = builder.Build();
 

@@ -1,5 +1,6 @@
 ﻿using Practice.Interfaces;
 using Practice.Models;
+using Practice.Services.AdditionalInfoServices;
 
 namespace Practice.Services
 {
@@ -12,13 +13,13 @@ namespace Practice.Services
             this.additionalInfoServices = additionalInfoServices;
         }
 
-        public ProcessedString AppendAdditionalInformation(ProcessedString processedString)
+        public ProcessedString AppendAdditionalInformation(Parameters parameters)
         {
             foreach (var additionalInfoService in additionalInfoServices)
             {
-                additionalInfoService.AppendAdditionalInfo(processedString);
+                additionalInfoService.AppendAdditionalInfo(parameters);
             }
-            return processedString;
+            return parameters.processedString;
         }
     }
 }

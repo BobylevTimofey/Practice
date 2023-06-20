@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 using Practice.Models;
-using Practice.Services;
+using Practice.Services.AdditionalInfoServices;
 using System.Globalization;
 
 namespace Practice.Tests
@@ -8,11 +8,11 @@ namespace Practice.Tests
     [TestFixture]
     public class SymbolCountingServiceTests
     {
-        private Dictionary<char, int> GetResult(string originalString)
+        private Dictionary<char, int>? GetResult(string originalString)
         {
             var symbolCounting = new SymbolCountingService();
             var processedString = new ProcessedString(originalString);
-            symbolCounting.AppendAdditionalInfo(processedString);
+            symbolCounting.AppendAdditionalInfo(new Parameters(processedString));
             return processedString.CountEachSymbols;
         }
 

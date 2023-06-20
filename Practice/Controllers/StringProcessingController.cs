@@ -2,6 +2,9 @@
 using Practice.Interfaces;
 using Practice.Models;
 using Practice.Services;
+using Practice.Services.AdditionalInfoServices;
+using Practice.Services.AdditionalInfoServices.Sortings;
+using System.Reflection.Metadata;
 
 namespace Practice.Controllers
 {
@@ -22,14 +25,13 @@ namespace Practice.Controllers
         }
 
         [HttpPost]
-        public IActionResult ProcessString([FromBody] string originalString, bool hasAdditionalInformation)
+        public IActionResult ProcessString([FromBody] string originalString, SorterName sorterName)
         {
             if (!validator.Validate(originalString))
                 return BadRequest(validator.ErrorMessage);
             var processedString = stringProcessing.ProcessString(originalString);
-            if (hasAdditionalInformation)
-                return Ok(aggregatorServices.AppendAdditionalInformation(processedString));
-            return Ok(processedString);
+            var parameters = new Parameters(processedString) { SorterName = sorterName };
+            return Ok(aggregatorServices.AppendAdditionalInformation(parameters));
         }
     }
 }

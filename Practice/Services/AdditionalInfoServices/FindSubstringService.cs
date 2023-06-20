@@ -1,21 +1,21 @@
 ﻿using Practice.Interfaces;
 using Practice.Models;
 
-namespace Practice.Services
+namespace Practice.Services.AdditionalInfoServices
 {
     public class FindSubstringService : IAdditionalInfoService
     {
         private char[] extremeLetters = new char[] { 'a', 'e', 'i', 'o', 'u', 'y' };
-        public void AppendAdditionalInfo(ProcessedString value)
+        public void AppendAdditionalInfo(Parameters parameters)
         {
-            var startPosition = FindStartPosition(value);
+            var startPosition = FindStartPosition(parameters.processedString);
             if (startPosition == -1)
             {
-                value.substring = "";
+                parameters.processedString.Substring = "";
                 return;
             }
-            var endPosition = FindEndPosition(value, startPosition);
-            value.substring = value.Result.Substring(startPosition, endPosition - startPosition + 1);
+            var endPosition = FindEndPosition(parameters.processedString, startPosition);
+            parameters.processedString.Substring = parameters.processedString.Result.Substring(startPosition, endPosition - startPosition + 1);
         }
 
         private int FindStartPosition(ProcessedString value)
