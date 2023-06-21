@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using Practice.Services.AdditionalInfoServices.Sortings;
 using Practice.Services.AdditionalInfoServices.Sortings.TreeSort;
 
 namespace Practice.Tests
@@ -13,7 +12,7 @@ namespace Practice.Tests
         public void SimpleTest(string originalString, string expectedString)
         {
             var originalArray = originalString.ToCharArray();
-            var quickSort = new Services.AdditionalInfoServices.Sortings.TreeSort.TreeSort<char>();
+            var quickSort = new TreeSort<char>();
             var sortedString = new string(quickSort.Sort(originalArray));
             Assert.AreEqual(expectedString, sortedString);
         }

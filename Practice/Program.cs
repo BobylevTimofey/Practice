@@ -19,8 +19,10 @@ builder.Services.AddTransient<IValidator<string>, OnlyEnglishLettersValidator>()
 builder.Services.AddTransient<IAdditionalInfoService, SymbolCountingService>();
 builder.Services.AddTransient<IAdditionalInfoService, FindSubstringService>();
 builder.Services.AddTransient<IAdditionalInfoService, SortingService>();
+builder.Services.AddTransient<IAdditionalInfoService, SymbolRemoveService>();
 builder.Services.AddTransient<ISorter<char>, QuickSort<char>>();
 builder.Services.AddTransient<ISorter<char>, TreeSort<char>>();
+builder.Services.AddHttpClient();
 
 var app = builder.Build();
 
