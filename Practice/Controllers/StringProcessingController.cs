@@ -24,8 +24,16 @@ namespace Practice.Controllers
             this.aggregatorServices = aggregatorServices;
         }
 
-        [HttpPost]
-        public IActionResult ProcessString([FromBody] string originalString, SorterName sorterName)
+        /// <summary> process the string </summary>
+        /// <param name="originalString">string to be processed</param>
+        /// <param name="sorterName">Selection of the sorting used</param>
+        /// <returns>Processed string with additional information</returns>
+        /// <response code="200">Returns the processed string with additional information</response>
+        /// <response code="400">If the string is null, empty or contains invalid symbols</response>
+        [HttpGet]
+        [Produces("application/json")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ProcessedString))]
+        public IActionResult ProcessString(string originalString, SorterName sorterName)
         {
             if (!validator.Validate(originalString))
                 return BadRequest(validator.ErrorMessage);
