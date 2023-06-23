@@ -5,10 +5,12 @@ namespace Practice.Services.AdditionalInfoServices
     public class SymbolRemoveService : IAdditionalInfoService
     {
         private readonly IHttpClientFactory clientFactory;
+        private readonly IConfiguration configuration;
 
-        public SymbolRemoveService(IHttpClientFactory clientFactory)
+        public SymbolRemoveService(IHttpClientFactory clientFactory, IConfiguration configuration)
         {
             this.clientFactory = clientFactory;
+            this.configuration = configuration;
         }
 
         public void AppendAdditionalInfo(Parameters parameters)
@@ -24,10 +26,11 @@ namespace Practice.Services.AdditionalInfoServices
         }
 
         private async Task<int> GetIndexFromWebApiAsync(int lengthArray)
-        {
+        { 
             var client = clientFactory.CreateClient();
+            client.BaseAddress = new Uri(configuration["RandomApi"]);
             var response = await client.GetStringAsync(
-                $"https://www.random.org/integers/?num=1&min=0&max={lengthArray - 1}&col=1&base=10&format=plain&rnd=new");
+                $"?num=1&min=0&max={lengthArray - 1}&col=1&base=10&format=plain&rnd=new");
             return int.Parse(response);
         }
 

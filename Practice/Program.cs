@@ -5,6 +5,7 @@ using Practice.Services;
 using Practice.Services.AdditionalInfoServices;
 using Practice.Services.AdditionalInfoServices.Sortings;
 using Practice.Services.AdditionalInfoServices.Sortings.TreeSort;
+using Practice.Services.Validators;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,7 +29,11 @@ builder.Services.AddSwaggerGen(options =>
 });
 builder.Services.AddTransient<StringProcessingService>();
 builder.Services.AddTransient<AggregatorAdditionalInformationServices>();
+builder.Services.AddTransient<ValidationService<string>>();
 builder.Services.AddTransient<IValidator<string>, OnlyEnglishLettersValidator>();
+builder.Services.AddTransient<IValidator<string>, NullStringValidator>();
+builder.Services.AddTransient<IValidator<string>, EmptyStringValidator>();
+builder.Services.AddTransient<IValidator<string>, BlackListValidator>();
 builder.Services.AddTransient<IAdditionalInfoService, SymbolCountingService>();
 builder.Services.AddTransient<IAdditionalInfoService, FindSubstringService>();
 builder.Services.AddTransient<IAdditionalInfoService, SortingService>();

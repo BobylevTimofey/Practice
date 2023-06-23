@@ -10,7 +10,7 @@ namespace Practice.Tests
     {
         private static ProcessedString GetResult(string originalString)
         {
-            var symbolRemoveService = new SymbolRemoveService(new HttpClient() as IHttpClientFactory);
+            var symbolRemoveService = new SymbolRemoveService(null, null);
             var processedString = new ProcessedString(originalString);
             symbolRemoveService.AppendAdditionalInfo(new Parameters(processedString));
             return processedString;

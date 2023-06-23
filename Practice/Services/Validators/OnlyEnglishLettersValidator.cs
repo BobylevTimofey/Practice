@@ -3,7 +3,7 @@ using Practice.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace Practice.Services
+namespace Practice.Services.Validators
 {
     public class OnlyEnglishLettersValidator : IValidator<string>
     {
@@ -11,25 +11,13 @@ namespace Practice.Services
 
         public bool Validate(string value)
         {
-            if (value == null)
-            {
-                ErrorMessage = "The string must not be null";
-                return false;
-            }
-
-            if (value.Length == 0)
-            {
-                ErrorMessage = "The string must not be empty";
-                return false;
-            }
-
             return ValidateSymbols(value.ToCharArray());
         }
 
         private bool ValidateSymbols(char[] value)
         {
             var errorSymbols = value.Where(symbol => symbol < 'a' || symbol > 'z')
-                .Distinct();
+                                    .Distinct();
             if (errorSymbols.Count() == 0)
                 return true;
             GenerateErrorMessage(errorSymbols);
@@ -48,7 +36,7 @@ namespace Practice.Services
                 errorMessage.Append(symbol);
                 errorMessage.Append('\'');
             }
-
+            errorMessage.Append('.');
             ErrorMessage = errorMessage.ToString();
         }
     }

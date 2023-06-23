@@ -13,11 +13,11 @@ namespace Practice.Controllers
     public class StringProcessingController : Controller
     {
         private readonly StringProcessingService stringProcessing;
-        private readonly IValidator<string> validator;
+        private readonly ValidationService<string> validator;
         private readonly AggregatorAdditionalInformationServices aggregatorServices;
 
         public StringProcessingController(StringProcessingService stringProcessing,
-            IValidator<string> validator, AggregatorAdditionalInformationServices aggregatorServices)
+            ValidationService<string> validator, AggregatorAdditionalInformationServices aggregatorServices)
         {
             this.stringProcessing = stringProcessing;
             this.validator = validator;
@@ -29,14 +29,14 @@ namespace Practice.Controllers
         /// <param name="sorterName">Selection of the sorting used</param>
         /// <returns>Processed string with additional information</returns>
         /// <response code="200">Returns the processed string with additional information</response>
-        /// <response code="400">If the string is null, empty or contains invalid symbols</response>
+        /// <response code="400">If the string is null, empty, contains invalid characters, or the string is in a black list</response>
         [HttpGet]
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ProcessedString))]
         public IActionResult ProcessString(string originalString, SorterName sorterName)
         {
             if (!validator.Validate(originalString))
-                return BadRequest(validator.ErrorMessage);
+                return BadRequest(validator.ErrorMessages);
             var processedString = stringProcessing.ProcessString(originalString);
             var parameters = new Parameters(processedString) { SorterName = sorterName };
             return Ok(aggregatorServices.AppendAdditionalInformation(parameters));
