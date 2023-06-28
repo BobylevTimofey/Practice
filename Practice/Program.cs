@@ -1,6 +1,8 @@
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Practice.Interfaces;
+using Practice.Middleware.RequestCounter;
 using Practice.Services;
 using Practice.Services.AdditionalInfoServices;
 using Practice.Services.AdditionalInfoServices.Sortings;
@@ -41,9 +43,11 @@ builder.Services.AddTransient<IAdditionalInfoService, SymbolRemoveService>();
 builder.Services.AddTransient<ISorter<char>, QuickSort<char>>();
 builder.Services.AddTransient<ISorter<char>, TreeSort<char>>();
 builder.Services.AddHttpClient();
+AddRequestCounter(builder);
 
 var app = builder.Build();
 
+app.UseRequestCounter();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -58,3 +62,13 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+void AddRequestCounter(WebApplicationBuilder builder)
+{
+    var ñonfiguration = new ConfigurationBuilder()
+           .AddJsonFile("appsettings.json", optional: false)
+           .Build();
+
+    var parallelLimit = ñonfiguration.GetSection("Settings").GetValue<int>("ParallelLimit");
+    builder.Services.AddSingleton(new RequestCounter(parallelLimit));
+}

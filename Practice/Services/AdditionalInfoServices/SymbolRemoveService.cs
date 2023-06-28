@@ -29,8 +29,7 @@ namespace Practice.Services.AdditionalInfoServices
         { 
             var client = clientFactory.CreateClient();
             client.BaseAddress = new Uri(configuration["RandomApi"]);
-            var response = await client.GetStringAsync(
-                $"?num=1&min=0&max={lengthArray - 1}&col=1&base=10&format=plain&rnd=new");
+            var response = await client.GetStringAsync($"?num=1&min=0&max={lengthArray - 1}&col=1&base=10&format=plain&rnd=new");
             return int.Parse(response);
         }
 
