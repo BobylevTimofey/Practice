@@ -15,13 +15,28 @@ namespace Practice.Tests
             return processedString.Substring;
         }
 
-        [TestCase("aa", "aa")]
-        [TestCase("cbafed", "afe")]
-        [TestCase("edcbaabcde", "edcbaabcde")]
-        [TestCase("vvv", "")]
-        public void SimpleTest(string originalString, string expectedSubstring)
+        [Test]
+        public void StringWithoutVowelsTest()
         {
-            Assert.AreEqual(expectedSubstring, GetResult(originalString));
+            Assert.AreEqual("", GetResult("www"));
+        }
+
+        [Test]
+        public void StringWithOneVowelTest()
+        {
+            Assert.AreEqual("a", GetResult("skfa"));
+        }
+
+        [Test]
+        public void OneSubstringTest()
+        {
+            Assert.AreEqual("afe", GetResult("cbafed"));
+        }
+
+        [Test]
+        public void StringWithMultipleSubstringsTest()
+        {
+            Assert.AreEqual("aabcudcsky", GetResult("aabcudcsky"));
         }
     }
 }

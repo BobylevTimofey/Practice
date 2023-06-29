@@ -9,6 +9,8 @@ namespace Practice.Services.AdditionalInfoServices.Sortings.TreeSort
 
         public T[] Sort(T[] array)
         {
+            if(array.Length == 0)
+                return array;
             var treeNode = new TreeNode<T>(array[0]);
             for(var i = 1; i < array.Length; i++)
                 treeNode.Insert(new TreeNode<T>(array[i]));

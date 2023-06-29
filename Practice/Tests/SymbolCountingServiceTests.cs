@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
 using Practice.Models;
 using Practice.Services.AdditionalInfoServices;
-using System.Globalization;
 
 namespace Practice.Tests
 {
@@ -35,6 +34,13 @@ namespace Practice.Tests
         {
             var expectedDictionary = new Dictionary<char, int>() { { 'a', 3 }, { 'b', 2 } };
             Assert.AreEqual(expectedDictionary, GetResult("aaabb"));
+        }
+
+        [Test]
+        public void EmptyStringTest()
+        {
+            var expectedDictionary = new Dictionary<char, int>();
+            Assert.AreEqual(expectedDictionary, GetResult(""));
         }
     }
 }

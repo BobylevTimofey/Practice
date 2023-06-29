@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using Practice.Models;
 using Practice.Services;
 
 namespace Practice.Tests
@@ -7,13 +6,29 @@ namespace Practice.Tests
     [TestFixture]
     public class StringProcessingServiceTests
     {
-        [TestCase("a", "aa")]
+        private StringProcessingService stringProcessing = new StringProcessingService();
+
         [TestCase("abcdef", "cbafed")]
-        [TestCase("abcde", "edcbaabcde")]
-        [TestCase("", "")]
-        public void SimpleTest(string originalString, string expectedString)
+        [TestCase("kfrd", "fkdr")]
+        public void EvenNumberSymbolsTest(string originalString, string expectedString)
         {
-            var stringProcessing = new StringProcessingService();
+     
+            Assert.AreEqual(expectedString, stringProcessing.ProcessString(originalString).Result);
+        }
+
+        [TestCase("a", "aa")]
+        [TestCase("abcde", "edcbaabcde")]
+        public void OddNumberSymbolsTest(string originalString, string expectedString)
+        {
+
+            Assert.AreEqual(expectedString, stringProcessing.ProcessString(originalString).Result);
+        }
+
+        [Test]
+        public void EmptyStringTest()
+        {
+            var originalString = "";
+            var expectedString = "";
             Assert.AreEqual(expectedString, stringProcessing.ProcessString(originalString).Result);
         }
     }
